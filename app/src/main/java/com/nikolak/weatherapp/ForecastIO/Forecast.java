@@ -1,13 +1,27 @@
 package com.nikolak.weatherapp.ForecastIO;
-import com.nikolak.weatherapp.ForecastIO.Current;
-import com.nikolak.weatherapp.ForecastIO.Hourly;
-import com.nikolak.weatherapp.ForecastIO.Daily;
-import com.nikolak.weatherapp.ForecastIO.ForecastFlags;
+
+
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Forecast {
+    public Currently currently = new Currently();
+    public Hourly hourly;
+    public Daily daily;
 
-    public Current current;
+    private ForecastAPI forecastAPI = new ForecastAPI();
 
-    public
+    public Boolean updateForecast(String lat, String lon) throws JSONException {
+        JSONObject response = forecastAPI.getDefault(lat, lon);
+        if (response==null) {
+            return false;
+        }
+
+        JSONObject currentlyJObject = response.getJSONObject("currently");
+        this.currently.ConstructFromJson(currentlyJObject);
+        return true;
+    }
+
 
 }
