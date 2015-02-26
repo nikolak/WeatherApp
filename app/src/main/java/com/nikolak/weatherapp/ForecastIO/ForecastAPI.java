@@ -54,43 +54,44 @@ public class ForecastAPI {
         }
     }
 
-    public Current getCurrent(String lat, String lon) {
+    public JSONObject getDefault(String lat, String lon) {
         String forecastURL = API_BASE + "/forecast/" + API_KEY + "/" + lat + "," + lon+"?units=auto";
-        Log.d("forecastURL", forecastURL);
+        Log.d("getDefault URL", forecastURL);
         if (lat == null || lon == null) {
             return null;
         }
 
         String apiResp = getAPIresponse(forecastURL);
-        JSONObject jObject;
+        JSONObject APIJsonObject;
         try {
-            jObject = new JSONObject(apiResp);
+            APIJsonObject = new JSONObject(apiResp);
+            return APIJsonObject;
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
 
-        JSONObject currentObject;
-        String forecastUnits = "us";
-        try {
-            currentObject = jObject.getJSONObject("currently");
-            //forecastUnits = currentObject.getJSONArray("flags").getString("units");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-        Log.d("currentObject", currentObject.toString());
-
-        Current currentForecast = new Current();
-
-        currentForecast.setUnits(forecastUnits);
-        try {
-            currentForecast.fromJson(currentObject);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        return currentForecast;
+//        JSONObject currentObject;
+//        String forecastUnits = "us";
+//        try {
+//            currentObject = jObject.getJSONObject("currently");
+//            //forecastUnits = currentObject.getJSONArray("flags").getString("units");
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//        Log.d("currentObject", currentObject.toString());
+//
+//        Current currentForecast = new Current();
+//
+//        currentForecast.setUnits(forecastUnits);
+//        try {
+//            currentForecast.fromJson(currentObject);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//
+//        return currentForecast;
     }
 }
