@@ -28,8 +28,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.nikolak.weatherapp.ForecastIO.Current;
+import com.nikolak.weatherapp.ForecastIO.Currently;
+import com.nikolak.weatherapp.ForecastIO.Forecast;
 import com.nikolak.weatherapp.ForecastIO.ForecastAPI;
+
+import org.json.JSONException;
 
 /**
  * Encapsulates fetching the forecast and displaying it as a {@link ListView} layout.
@@ -51,6 +54,8 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
     public TextView currentMinTemp;
     public TextView currentMaxTemp;
 //    private ForecastAPI forecastAPI;
+
+    private Forecast forecast = new Forecast();
 
     public ForecastFragment() {
     }
@@ -98,16 +103,17 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
         updater.execute();
     }
 
-    public void updateForecastUI(Current current){
-        String desc = current.getSummary();
-        String temp = Math.round(current.getTemperature())+"°";
-        String apparent = Math.round(current.getApparentTemperature())+"°";
+    public void updateForecastUI(){
+        Currently currently = forecast.currently;
+        String desc = currently.getSummary();
+        String temp = Math.round(currently.getTemperature())+"°";
+        String apparent = Math.round(currently.getApparentTemperature())+"°";
         String perception = "0.0mm";
-        String windSpeed = current.getWindSpeed()+"mph";
+        String windSpeed = currently.getWindSpeed()+"mph";
         String minTemp = "-5°";
         String maxTemp = "5°";
         Integer icon;
-        switch (current.getIcon()){
+        switch (currently.getIcon()){
             case "clear-day":
                 icon = R.drawable.clearday;
                 break;
@@ -157,19 +163,23 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
 
 
     public class FetchWeatherTask extends AsyncTask<String, Void, String> {
-
-        private Current current;
+        private Boolean updated;
         @Override
         protected String doInBackground(String... params) {
-            ForecastAPI f = new ForecastAPI();
-            current = f.getCurrent(latitude,longitude);
+            updated = false;
+            try {
+                updated = forecast.updateForecast(latitude, longitude);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return null;
+            }
             return null;
         }
 
         @Override
         protected void onPostExecute(String aString) {
-            if(current != null){
-                updateForecastUI(current);
+            if(updated){
+                updateForecastUI();
             }
         }
     }
