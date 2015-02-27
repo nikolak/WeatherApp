@@ -1,36 +1,18 @@
 package com.nikolak.weatherapp;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.nikolak.weatherapp.ForecastIO.Currently;
 import com.nikolak.weatherapp.ForecastIO.Forecast;
-import com.nikolak.weatherapp.ForecastIO.ForecastAPI;
 
 import org.json.JSONException;
 
@@ -39,22 +21,18 @@ import org.json.JSONException;
  */
 public class ForecastFragment extends Fragment {// implements LocationListener{
 
-    protected String latitude, longitude;
-    private SharedPreferences settings;
-    private View rootView;
-
     public ImageView currentIcon;
-
     public TextView currentSummary;
-
     public TextView currentTemperature;
     public TextView currentApparentTemp;
     public TextView currentPerception;
     public TextView currentWindSpeed;
     public TextView currentMinTemp;
     public TextView currentMaxTemp;
-//    private ForecastAPI forecastAPI;
-
+    protected String latitude, longitude;
+    private SharedPreferences settings;
+    private View rootView;
+    //    private ForecastAPI forecastAPI;
     private Forecast forecast = new Forecast();
 
     public ForecastFragment() {
@@ -78,9 +56,9 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
 
         currentSummary = (TextView) rootView.findViewById(R.id.summaryLabel);
 
-        currentTemperature =  (TextView) rootView.findViewById(R.id.currentTemperature);
+        currentTemperature = (TextView) rootView.findViewById(R.id.currentTemperature);
         currentApparentTemp = (TextView) rootView.findViewById(R.id.apparentTemperature);
-        currentPerception = (TextView)  rootView.findViewById(R.id.perception);
+        currentPerception = (TextView) rootView.findViewById(R.id.perception);
         currentWindSpeed = (TextView) rootView.findViewById(R.id.windSpeed);
         currentMinTemp = (TextView) rootView.findViewById(R.id.minTemperature);
         currentMaxTemp = (TextView) rootView.findViewById(R.id.maxTemperature);
@@ -88,36 +66,36 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
         return rootView;
     }
 
-    public String[] getLocation(){
+    public String[] getLocation() {
         return null;
     }
 
-    public void saveLocation(){
+    public void saveLocation() {
 
     }
 
-    public void updateForecast(){
+    public void updateForecast() {
         latitude = settings.getString("latitude", null);
         longitude = settings.getString("longitude", null);
         FetchWeatherTask updater = new FetchWeatherTask();
         updater.execute();
     }
 
-    public void updateForecastUI(){
+    public void updateForecastUI() {
         Currently currently = forecast.currently;
         String desc = currently.getSummary();
-        String temp = Math.round(currently.getTemperature())+"°";
-        String apparent = Math.round(currently.getApparentTemperature())+"°";
+        String temp = Math.round(currently.getTemperature()) + "°";
+        String apparent = Math.round(currently.getApparentTemperature()) + "°";
         String perception = "0.0mm";
-        String windSpeed = currently.getWindSpeed()+"mph";
+        String windSpeed = currently.getWindSpeed() + "mph";
         String minTemp = "-5°";
         String maxTemp = "5°";
         Integer icon;
-        switch (currently.getIcon()){
+        switch (currently.getIcon()) {
             case "clear-day":
                 icon = R.drawable.clearday;
                 break;
-            case  "clear-night":
+            case "clear-night":
                 icon = R.drawable.clearnight;
                 break;
             case "rain":
@@ -154,7 +132,7 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
 
         currentTemperature.setText(temp);
 
-        currentApparentTemp.setText("Feels like: "+apparent);
+        currentApparentTemp.setText("Feels like: " + apparent);
         currentPerception.setText(perception);
         currentWindSpeed.setText(windSpeed);
         currentMinTemp.setText(minTemp);
@@ -164,6 +142,7 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
 
     public class FetchWeatherTask extends AsyncTask<String, Void, String> {
         private Boolean updated;
+
         @Override
         protected String doInBackground(String... params) {
             updated = false;
@@ -178,7 +157,7 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
 
         @Override
         protected void onPostExecute(String aString) {
-            if(updated){
+            if (updated) {
                 updateForecastUI();
             }
         }
