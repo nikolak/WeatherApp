@@ -12,10 +12,6 @@ public class Hourly {
     private String icon;
     private String summary;
 
-    public List getData() {
-        return this.hourData;
-    }
-
     public String getIcon() {
         return this.icon;
     }
@@ -24,12 +20,15 @@ public class Hourly {
         return this.summary;
     }
 
+    public ArrayList<Hour> getHourData(){
+        return this.hourData;
+    }
 
-    public void constructFromJson(JSONObject hourlyData) throws JSONException {
-        this.summary = hourlyData.getString("summary");
-        this.icon = hourlyData.getString("icon");
+    public void constructFromJson(JSONObject hourlyJson) throws JSONException {
+        this.summary = hourlyJson.getString("summary");
+        this.icon = hourlyJson.getString("icon");
 
-        JSONArray hourArray = hourlyData.getJSONArray("data");
+        JSONArray hourArray = hourlyJson.getJSONArray("data");
 
         for (int i = 0; i < hourArray.length(); i++) {
             JSONObject hourJsonObject = hourArray.getJSONObject(i);
