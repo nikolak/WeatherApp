@@ -1,7 +1,6 @@
 package com.nikolak.weatherapp.ForecastIO;
 
 
-
 import android.util.Log;
 
 import org.json.JSONException;
@@ -17,26 +16,30 @@ public class Forecast {
 
     public Boolean updateForecast(String lat, String lon) throws JSONException {
         JSONObject response = forecastAPI.getDefault(lat, lon);
-        if (response==null) {
+        if (response == null) {
             return false;
         }
 
         JSONObject currentlyJObject = response.getJSONObject("currently");
         this.currently.ConstructFromJson(currentlyJObject);
 
-        try{
+        try {
             JSONObject minutelyJObject = response.getJSONObject("minutely");
-            if (minutelyJObject!=null){
+            if (minutelyJObject != null) {
                 minutely.constructFromJson(minutelyJObject);
-            } else{
+            } else {
                 minutely = null;
             }
-        } catch (JSONException e){
+        } catch (JSONException e) {
             Log.d("Json", "Minutely not available");
         }
 
         JSONObject hourlyJObject = response.getJSONObject("hourly");
         this.hourly.constructFromJson(hourlyJObject);
+
+        JSONObject dailyObject = response.getJSONObject("daily");
+        this.daily.constructFromJson(dailyObject);
+
         return true;
     }
 
