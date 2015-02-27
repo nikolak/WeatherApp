@@ -7,8 +7,8 @@ import org.json.JSONObject;
 
 public class Forecast {
     public Currently currently = new Currently();
-    public Hourly hourly;
-    public Daily daily;
+    public Hourly hourly = new Hourly();
+    public Daily daily = new Daily();
 
     private ForecastAPI forecastAPI = new ForecastAPI();
 
@@ -20,6 +20,9 @@ public class Forecast {
 
         JSONObject currentlyJObject = response.getJSONObject("currently");
         this.currently.ConstructFromJson(currentlyJObject);
+
+        JSONObject hourlyJObject = response.getJSONObject("hourly");
+        this.hourly.constructFromJson(hourlyJObject);
         return true;
     }
 
