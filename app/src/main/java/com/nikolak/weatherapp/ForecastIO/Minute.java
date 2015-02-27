@@ -1,6 +1,19 @@
+//    Copyright 2015 Nikola Kovacevic <nikolak@outlook.com>
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+
 package com.nikolak.weatherapp.ForecastIO;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,11 +23,19 @@ public class Minute {
     private Double precipIntensity;
     private Double precipProbability;
 
-    public Integer getTime(){return this.time;}
-    public Double getPrecipIntensity(){return this.precipIntensity;}
-    public Double getPrecipProbability(){return this.precipProbability;}
+    public Integer getTime() {
+        return this.time;
+    }
 
-    public void constrcutFromJson(JSONObject minutelyJson) throws JSONException{
+    public Double getPrecipIntensity() {
+        return this.precipIntensity;
+    }
+
+    public Double getPrecipProbability() {
+        return this.precipProbability;
+    }
+
+    public void constrcutFromJson(JSONObject minutelyJson) throws JSONException {
         this.time = minutelyJson.getInt("time");
         this.precipIntensity = minutelyJson.getDouble("precipIntensity");
         this.precipProbability = minutelyJson.getDouble("precipProbability");
