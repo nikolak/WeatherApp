@@ -1,10 +1,14 @@
 package com.nikolak.weatherapp.ForecastIO;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
-import com.nikolak.weatherapp.ForecastIO.Hour;
 
 public class Hourly {
-    private List<Hour> hourData;
+    private ArrayList<Hour> hourData = new ArrayList<>();
     private String icon;
     private String summary;
 
@@ -12,23 +16,26 @@ public class Hourly {
         return this.hourData;
     }
 
-    public void setData(List data) {
-        this.hourData = data;
-    }
-
     public String getIcon() {
         return this.icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
     }
 
     public String getSummary() {
         return this.summary;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+
+    public void constructFromJson(JSONObject hourlyData) throws JSONException {
+        this.summary = hourlyData.getString("summary");
+        this.icon = hourlyData.getString("icon");
+
+        JSONArray hourArray = hourlyData.getJSONArray("data");
+
+        for (int i = 0; i < hourArray.length(); i++) {
+            JSONObject hourJsonObject = hourArray.getJSONObject(i);
+            Hour hourInstance = new Hour();
+            hourInstance.constrcutFromJson(hourJsonObject);
+            this.hourData.add(hourInstance);
+        }
     }
 }
