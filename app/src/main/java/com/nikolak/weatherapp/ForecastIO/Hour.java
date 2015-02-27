@@ -78,21 +78,21 @@ public class Hour {
         return this.ozone;
     }
 
-    public void constrcutFromJson(JSONObject hourData) throws JSONException {
-        this.time = hourData.getInt("time");
-        this.summary = hourData.getString("summary");
-        this.icon = hourData.getString("icon");
-        this.precipIntensity = hourData.getDouble("precipIntensity");
-        this.precipProbability = hourData.getDouble("precipProbability");
-        this.temperature = hourData.getDouble("temperature");
-        this.apparentTemperature = hourData.getDouble("apparentTemperature");
-        this.dewPoint = hourData.getDouble("dewPoint");
-        this.humidity = hourData.getDouble("humidity");
-        this.windSpeed = hourData.getDouble("windSpeed");
-        this.windBearing = hourData.getInt("windBearing");
-        this.cloudCover = hourData.getDouble("cloudCover");
-        this.pressure = hourData.getDouble("pressure");
-        this.ozone = hourData.getDouble("ozone");
+    public void constrcutFromJson(JSONObject hourJson) throws JSONException {
+        this.time = hourJson.getInt("time");
+        this.summary = hourJson.getString("summary");
+        this.icon = hourJson.getString("icon");
+        this.precipIntensity = hourJson.getDouble("precipIntensity");
+        this.precipProbability = hourJson.getDouble("precipProbability");
+        this.temperature = hourJson.getDouble("temperature");
+        this.apparentTemperature = hourJson.getDouble("apparentTemperature");
+        this.dewPoint = hourJson.getDouble("dewPoint");
+        this.humidity = hourJson.getDouble("humidity");
+        this.windSpeed = hourJson.getDouble("windSpeed");
+        this.windBearing = hourJson.getInt("windBearing");
+        this.cloudCover = hourJson.getDouble("cloudCover");
+        this.pressure = hourJson.getDouble("pressure");
+        this.ozone = hourJson.getDouble("ozone");
         Log.d("Hour", "Constructed: " + time.toString());
     }
 }
