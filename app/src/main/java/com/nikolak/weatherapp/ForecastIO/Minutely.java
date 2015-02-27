@@ -29,10 +29,10 @@ public class Minutely {
         this.summary = minutelyJson.getString("summary");
         this.icon = minutelyJson.getString("icon");
 
-        JSONArray hourArray = minutelyJson.getJSONArray("data");
+        JSONArray minuteArray = minutelyJson.getJSONArray("data");
 
-        for (int i = 0; i < hourArray.length(); i++) {
-            JSONObject minuteJsonObject = hourArray.getJSONObject(i);
+        for (int i = 0; i < minuteArray.length(); i++) {
+            JSONObject minuteJsonObject = minuteArray.getJSONObject(i);
             Minute minuteInstance = new Minute();
             minuteInstance.constrcutFromJson(minuteJsonObject);
             this.minuteData.add(minuteInstance);
