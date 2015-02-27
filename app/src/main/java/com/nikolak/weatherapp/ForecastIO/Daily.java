@@ -1,34 +1,39 @@
 package com.nikolak.weatherapp.ForecastIO;
 
-import java.util.List;
-import com.nikolak.weatherapp.ForecastIO.Day;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class Daily {
-    private List<Day> dayData;
-    private String icon;
     private String summary;
+    private String icon;
+    private ArrayList<Day> dayData = new ArrayList<>();
 
-    public List getData() {
-        return this.dayData;
-    }
-
-    public void setData(List<Day> data) {
-        this.dayData = data;
+    public String getSummary() {
+        return this.summary;
     }
 
     public String getIcon() {
         return this.icon;
     }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
+    public ArrayList<Day> getDayData() {
+        return this.dayData;
     }
 
-    public String getSummary() {
-        return this.summary;
-    }
+    public void constructFromJson(JSONObject dailyJson) throws JSONException {
+        this.summary = dailyJson.getString("summary");
+        this.icon = dailyJson.getString("icon");
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+        JSONArray dayArray = dailyJson.getJSONArray("data");
+
+        for (int i = 0; i < dayArray.length(); i++) {
+            JSONObject dayJsonObject = dayArray.getJSONObject(i);
+            Day dayInstance = new Day();
+            dayInstance.constructFromJson(dayJsonObject);
+            this.dayData.add(dayInstance);
+        }
     }
 }
