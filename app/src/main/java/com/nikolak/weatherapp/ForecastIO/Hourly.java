@@ -5,7 +5,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Hourly {
     private ArrayList<Hour> hourData = new ArrayList<>();
@@ -20,7 +19,7 @@ public class Hourly {
         return this.summary;
     }
 
-    public ArrayList<Hour> getHourData(){
+    public ArrayList<Hour> getHourData() {
         return this.hourData;
     }
 
