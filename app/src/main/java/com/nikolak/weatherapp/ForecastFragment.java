@@ -26,9 +26,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nikolak.weatherapp.ForecastIO.Currently;
+import com.nikolak.weatherapp.ForecastIO.Day;
 import com.nikolak.weatherapp.ForecastIO.Forecast;
 
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 /**
  * Encapsulates fetching the forecast and displaying it as a {@link ListView} layout.
@@ -43,10 +45,13 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
     public TextView currentWindSpeed;
     public TextView currentMinTemp;
     public TextView currentMaxTemp;
+    public TextView daySummary;
+    public TextView weekSummary;
+
+
     protected String latitude, longitude;
     private SharedPreferences settings;
     private View rootView;
-    //    private ForecastAPI forecastAPI;
     private Forecast forecast = new Forecast();
 
     public ForecastFragment() {
@@ -77,6 +82,9 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
         currentMinTemp = (TextView) rootView.findViewById(R.id.minTemperature);
         currentMaxTemp = (TextView) rootView.findViewById(R.id.maxTemperature);
 
+        daySummary = (TextView) rootView.findViewById(R.id.daySummary);
+        weekSummary = (TextView) rootView.findViewById(R.id.weekSummary);
+
         return rootView;
     }
 
@@ -97,13 +105,20 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
 
     public void updateForecastUI() {
         Currently currently = forecast.currently;
+        Day currentDay = forecast.daily.getDayData().get(0);
+        String windSpeedUnit = null;
+        if (forecast.flags.getUnits().equals("us")) {
+            windSpeedUnit = "mph";
+        } else {
+            windSpeedUnit = "m/s";
+        }
         String desc = currently.getSummary();
         String temp = Math.round(currently.getTemperature()) + "°";
         String apparent = Math.round(currently.getApparentTemperature()) + "°";
-        String perception = "0.0mm";
-        String windSpeed = currently.getWindSpeed() + "mph";
-        String minTemp = "-5°";
-        String maxTemp = "5°";
+        String perception = forecast.currently.getPrecipIntensity().toString();
+        String windSpeed = currently.getWindSpeed() + windSpeedUnit;
+        String minTemp = Math.round(currentDay.getTemperatureMin()) + "°";
+        String maxTemp = Math.round(currentDay.getTemperatureMax()) + "°";
         Integer icon;
         switch (currently.getIcon()) {
             case "clear-day":
@@ -151,6 +166,9 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
         currentWindSpeed.setText(windSpeed);
         currentMinTemp.setText(minTemp);
         currentMaxTemp.setText(maxTemp);
+
+        daySummary.setText(forecast.hourly.getSummary());
+        weekSummary.setText(forecast.daily.getSummary());
     }
 
 
