@@ -48,7 +48,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Light Snow"
+                    android:text="Unknown"
                     android:id="@+id/summaryLabel"
                     android:fontFamily="sans-serif-thin"
                     android:textColor="@color/primary_text_default_material_light"
@@ -90,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="5°"
+            android:text="N/A"
             android:id="@+id/currentTemperature"
             android:textSize="90sp"
             android:singleLine="true"
@@ -113,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Feels like: 2°"
+                android:text="Feels like: N.A"
                 android:id="@+id/apparentTemperature"
                 android:fontFamily="sans-serif"
                 android:layout_gravity="center_vertical"
@@ -139,7 +139,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="0.0mm"
+                    android:text="n/a"
                     android:id="@+id/perception"
                     android:layout_gravity="center"
                     android:layout_marginLeft="15dp" />
@@ -162,7 +162,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="0.0kmph"
+                    android:text="n/a"
                     android:id="@+id/windSpeed"
                     android:layout_gravity="center"
                     android:layout_marginLeft="15dp" />
@@ -190,7 +190,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="1°"
+                        android:text="?°"
                         android:id="@+id/minTemperature"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
@@ -207,13 +207,14 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:id="@+id/imageView9"
-                        android:src="@drawable/maxtemp" />
+                        android:src="@drawable/maxtemp"
+                        android:adjustViewBounds="false" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="6°"
+                        android:text="?°"
                         android:id="@+id/maxTemperature"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
@@ -250,7 +251,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Snow (3–8 cm.) throughout the day."
+            android:text="Unknown"
             android:id="@+id/daySummary"
             android:textSize="17sp" />
 
@@ -282,7 +283,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/weekSummary"
             android:textSize="17sp"
-            android:text="Mixed precipitation throughout the week, with temperatures rising to 8°C on Monday." />
+            android:text="Unknown" />
 
     </LinearLayout>
 
@@ -302,7 +303,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Mon"
+                android:text="N/A"
                 android:id="@+id/textView25"
                 android:layout_gravity="center_horizontal" />
 
@@ -325,7 +326,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="2°"
+                    android:text="?°"
                     android:id="@+id/textView26"
                     android:layout_weight="50"
                     android:layout_gravity="left"
@@ -335,7 +336,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="5°"
+                    android:text="?°"
                     android:id="@+id/textView27"
                     android:layout_gravity="right"
                     android:layout_weight="50"
@@ -355,7 +356,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Tue"
+                android:text="N/A"
                 android:id="@+id/textView13"
                 android:layout_gravity="center_horizontal" />
 
@@ -377,7 +378,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="2°"
+                    android:text="?°"
                     android:id="@+id/textView14"
                     android:layout_weight="50"
                     android:layout_marginLeft="10dp" />
@@ -386,7 +387,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="5°"
+                    android:text="?°"
                     android:id="@+id/textView15"
                     android:layout_gravity="right"
                     android:layout_weight="50"
@@ -406,7 +407,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Wed"
+                android:text="N/A"
                 android:id="@+id/textView22"
                 android:layout_gravity="center_horizontal" />
 
@@ -428,7 +429,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="2°"
+                    android:text="?°"
                     android:id="@+id/textView23"
                     android:layout_weight="50" />
 
@@ -436,7 +437,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="5°"
+                    android:text="?°"
                     android:id="@+id/textView24"
                     android:layout_gravity="right"
                     android:layout_weight="50"
@@ -450,14 +451,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="20"
-            android:background="#ff017bff"
             android:layout_gravity="bottom">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Thu"
+                android:text="N/A"
                 android:id="@+id/textView19"
                 android:layout_gravity="center_horizontal" />
 
@@ -479,7 +479,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="2°"
+                    android:text="?°"
                     android:id="@+id/textView20"
                     android:layout_weight="50"
                     android:layout_marginLeft="10dp" />
@@ -488,7 +488,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="5°"
+                    android:text="?°"
                     android:id="@+id/textView21"
                     android:layout_gravity="right"
                     android:layout_weight="50"
@@ -502,14 +502,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="20"
-            android:background="#ff00bcff"
             android:layout_gravity="bottom">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Fri"
+                android:text="N/A"
                 android:id="@+id/textView16"
                 android:layout_gravity="center_horizontal" />
 
@@ -531,7 +530,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="2°"
+                    android:text="?°"
                     android:id="@+id/textView17"
                     android:layout_weight="50"
                     android:layout_marginLeft="10dp" />
@@ -540,7 +539,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="5°"
+                    android:text="?°"
                     android:id="@+id/textView18"
                     android:layout_gravity="right"
                     android:layout_weight="50"
