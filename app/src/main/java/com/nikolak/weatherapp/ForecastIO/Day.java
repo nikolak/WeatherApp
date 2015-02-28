@@ -49,8 +49,119 @@ public class Day {
     private Double precipAccumulation;  // Not Always Present
     private Double visibility;          // Not Always Present
 
-    public void constructFromJson(JSONObject dayJson) throws JSONException {
+    public Integer getTime() {
+        return this.time;
+    }
 
+    public String getSummary() {
+        return this.summary;
+    }
+
+    public String getIcon() {
+        return this.icon;
+    }
+
+    public Double getMoonPhase() {
+        return this.moonPhase;
+    }
+
+    public Integer getSunriseTime() {
+        return this.sunriseTime;
+    }
+
+    public Integer getSunsetTime() {
+        return this.sunsetTime;
+    }
+
+    public Double getPrecipIntensity() {
+        return this.precipIntensity;
+    }
+
+    public Double getPrecipIntensityMax() {
+        return this.precipIntensityMax;
+    }
+
+    public Integer getPrecipIntensityMaxTime() {
+        return this.precipIntensityMaxTime;
+    }
+
+    public Double getPrecipProbability() {
+        return this.precipProbability;
+    }
+
+    public String getPrecipType() {
+        return this.precipType;
+    }
+
+    public Double getTemperatureMin() {
+        return this.temperatureMin;
+    }
+
+    public Integer getTemperatureMinTime() {
+        return this.temperatureMinTime;
+    }
+
+    public Double getTemperatureMax() {
+        return this.temperatureMax;
+    }
+
+    public Integer getTemperatureMaxTime() {
+        return this.temperatureMaxTime;
+    }
+
+    public Double getApparentTemperatureMin() {
+        return this.apparentTemperatureMin;
+    }
+
+    public Integer getApparentTemperatureMinTime() {
+        return this.apparentTemperatureMinTime;
+    }
+
+    public Double getApparentTemperatureMax() {
+        return this.apparentTemperatureMax;
+    }
+
+    public Integer getApparentTemperatureMaxTime() {
+        return this.apparentTemperatureMaxTime;
+    }
+
+    public Double getDewPoint() {
+        return this.dewPoint;
+    }
+
+    public Double getHumidity() {
+        return this.humidity;
+    }
+
+    public Double getWindSpeed() {
+        return this.windSpeed;
+    }
+
+    public Integer getWindBearing() {
+        return this.windBearing;
+    }
+
+    public Double getCloudCover() {
+        return this.cloudCover;
+    }
+
+    public Double getPressure() {
+        return this.pressure;
+    }
+
+    public Double getOzone() {
+        return this.ozone;
+    }
+
+    public Double getPrecipAccumulation() {
+        return this.precipAccumulation;
+    }
+
+    public Double getVisibility() {
+        return this.visibility;
+    }
+
+    public void constructFromJson(JSONObject dayJson) throws JSONException {
 
         this.time = dayJson.getInt("time");
         this.summary = dayJson.getString("summary");
@@ -74,7 +185,7 @@ public class Day {
         this.dewPoint = dayJson.getDouble("dewPoint");
         this.humidity = dayJson.getDouble("humidity");
         this.windSpeed = dayJson.getDouble("windSpeed");
-        this.windBearing = dayJson.getInt("windBearing");
+
         this.cloudCover = dayJson.getDouble("cloudCover");
         this.pressure = dayJson.getDouble("pressure");
         this.ozone = dayJson.getDouble("ozone");
@@ -88,6 +199,12 @@ public class Day {
             this.visibility = dayJson.getDouble("visibility");
         } catch (JSONException e) {
             this.visibility = null;
+        }
+
+        try {
+            this.windBearing = dayJson.getInt("windBearing");
+        } catch (JSONException e) {
+            this.windBearing = null;
         }
     }
 }
