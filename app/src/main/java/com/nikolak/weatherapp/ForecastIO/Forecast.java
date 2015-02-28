@@ -25,6 +25,7 @@ public class Forecast {
     public Minutely minutely = new Minutely();
     public Hourly hourly = new Hourly();
     public Daily daily = new Daily();
+    public Flags flags = new Flags();
 
     private ForecastAPI forecastAPI = new ForecastAPI();
 
@@ -54,6 +55,8 @@ public class Forecast {
         JSONObject dailyObject = response.getJSONObject("daily");
         this.daily.constructFromJson(dailyObject);
 
+        JSONObject flagsObject = response.getJSONObject("flags");
+        this.flags.constructFromJson(flagsObject);
         return true;
     }
 
