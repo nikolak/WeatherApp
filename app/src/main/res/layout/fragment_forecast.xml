@@ -251,7 +251,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Snow (3–8 cm.) throughout the day."
-            android:id="@+id/nextDayText"
+            android:id="@+id/daySummary"
             android:textSize="17sp" />
 
     </LinearLayout>
@@ -280,7 +280,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/nextWeekText"
+            android:id="@+id/weekSummary"
             android:textSize="17sp"
             android:text="Mixed precipitation throughout the week, with temperatures rising to 8°C on Monday." />
 
