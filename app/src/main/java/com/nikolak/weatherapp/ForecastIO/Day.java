@@ -190,9 +190,9 @@ public class Day {
         this.pressure = dayJson.getDouble("pressure");
         this.ozone = dayJson.getDouble("ozone");
 
-        if (this.windSpeed.equals(0){
+        if (this.windSpeed.equals(0)){
             this.windBearing = null;
-        } else{
+        }else{
             this.windBearing = dayJson.getInt("windBEaring");
         }
 
