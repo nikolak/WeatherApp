@@ -20,6 +20,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,10 @@ import com.nikolak.weatherapp.ForecastIO.Day;
 import com.nikolak.weatherapp.ForecastIO.Forecast;
 
 import org.json.JSONException;
-import org.w3c.dom.Text;
+
+import java.util.Date;
+
+
 
 /**
  * Encapsulates fetching the forecast and displaying it as a {@link ListView} layout.
@@ -62,8 +66,8 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+//        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         settings = getActivity().getSharedPreferences(MainActivity.PREFS_NAME, 0);
         updateForecast();
     }
@@ -102,7 +106,18 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
         latitude = settings.getString("latitude", null);
         longitude = settings.getString("longitude", null);
         FetchWeatherTask updater = new FetchWeatherTask();
-        updater.execute();
+        updater.execute(latitude, longitude, "bs");
+    }
+
+    public void updateSettings(){
+        Date lastUpdateDate = new Date();
+//        lastUpdate.toString();
+//        String lastUpdate = lastUpdateDate.toString();
+        SharedPreferences.Editor prefEditor = settings.edit();
+        prefEditor.putString("latitude", latitude);
+        prefEditor.putString("longitude", longitude);
+        prefEditor.putString("lastUpdate", lastUpdateDate.toString());
+        prefEditor.commit();
     }
 
     public void updateForecastUI() {
@@ -173,6 +188,10 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
         weekSummary.setText(forecast.daily.getSummary());
     }
 
+    public void notifyUpdateFailed(){
+        Log.d("Update", "Update failed");
+    }
+
 
     public class FetchWeatherTask extends AsyncTask<String, Void, String> {
         private Boolean updated;
@@ -182,10 +201,10 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
             updated = false;
             try {
                 String lat = params[0];
-                String lon = params[0];
+                String lon = params[1];
                 String lang = "en";
-                if(params.length==3) {
-                    lang = params[3];
+                if (params.length == 2) {
+                    lang = params[2];
                 }
 
                 updated = forecast.updateForecast(lat, lon, lang);
@@ -200,6 +219,8 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
         protected void onPostExecute(String aString) {
             if (updated) {
                 updateForecastUI();
+            } else{
+                notifyUpdateFailed();
             }
         }
     }
