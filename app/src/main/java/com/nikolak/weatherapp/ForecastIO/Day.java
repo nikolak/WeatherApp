@@ -190,6 +190,12 @@ public class Day {
         this.pressure = dayJson.getDouble("pressure");
         this.ozone = dayJson.getDouble("ozone");
 
+        if (this.windSpeed.equals(0){
+            this.windBearing = null;
+        } else{
+            this.windBearing = dayJson.getInt("windBEaring");
+        }
+
         try {
             this.precipAccumulation = dayJson.getDouble("precipAccumulation");
         } catch (JSONException e) {
@@ -199,12 +205,6 @@ public class Day {
             this.visibility = dayJson.getDouble("visibility");
         } catch (JSONException e) {
             this.visibility = null;
-        }
-
-        try {
-            this.windBearing = dayJson.getInt("windBearing");
-        } catch (JSONException e) {
-            this.windBearing = null;
         }
     }
 }
