@@ -68,8 +68,8 @@ public class ForecastAPI {
         }
     }
 
-    public JSONObject getDefault(String lat, String lon) {
-        String forecastURL = API_BASE + "/forecast/" + API_KEY + "/" + lat + "," + lon + "?units=auto";
+    public JSONObject getDefault(String lat, String lon, String lang) {
+        String forecastURL = API_BASE + "/forecast/" + API_KEY + "/" + lat + "," + lon + "?units=auto&lang="+lang;
         Log.d("getDefault URL", forecastURL);
         if (lat == null || lon == null) {
             return null;

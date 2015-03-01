@@ -29,8 +29,8 @@ public class Forecast {
 
     private ForecastAPI forecastAPI = new ForecastAPI();
 
-    public Boolean updateForecast(String lat, String lon) throws JSONException {
-        JSONObject response = forecastAPI.getDefault(lat, lon);
+    public Boolean updateForecast(String lat, String lon, String lang) throws JSONException {
+        JSONObject response = forecastAPI.getDefault(lat, lon, lang);
         if (response == null) {
             return false;
         }
@@ -48,9 +48,12 @@ public class Forecast {
         } catch (JSONException e) {
             Log.d("Json", "Minutely not available");
         }
-
-        JSONObject hourlyJObject = response.getJSONObject("hourly");
-        this.hourly.constructFromJson(hourlyJObject);
+        try {
+            JSONObject hourlyJObject = response.getJSONObject("hourly");
+            this.hourly.constructFromJson(hourlyJObject);
+        } catch (JSONException e){
+            Log.d("Hourly exception", e.toString());
+        }
 
         JSONObject dailyObject = response.getJSONObject("daily");
         this.daily.constructFromJson(dailyObject);

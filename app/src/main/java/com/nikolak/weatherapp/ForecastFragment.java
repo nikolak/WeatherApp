@@ -14,7 +14,9 @@
 
 package com.nikolak.weatherapp;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -60,8 +62,8 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         settings = getActivity().getSharedPreferences(MainActivity.PREFS_NAME, 0);
         updateForecast();
     }
@@ -179,7 +181,14 @@ public class ForecastFragment extends Fragment {// implements LocationListener{
         protected String doInBackground(String... params) {
             updated = false;
             try {
-                updated = forecast.updateForecast(latitude, longitude);
+                String lat = params[0];
+                String lon = params[0];
+                String lang = "en";
+                if(params.length==3) {
+                    lang = params[3];
+                }
+
+                updated = forecast.updateForecast(lat, lon, lang);
             } catch (JSONException e) {
                 e.printStackTrace();
                 return null;
