@@ -30,8 +30,11 @@ public class Forecast {
     private ForecastAPI forecastAPI = new ForecastAPI();
 
     public Boolean updateForecast(String lat, String lon, String lang) throws JSONException {
-        JSONObject response = forecastAPI.getDefault(lat, lon, lang);
-        if (response == null) {
+        JSONObject response;
+        try{
+            response = forecastAPI.getDefault(lat, lon, lang);
+        } catch (NullPointerException e){
+            response = null;
             return false;
         }
 
