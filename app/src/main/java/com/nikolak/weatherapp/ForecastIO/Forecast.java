@@ -34,7 +34,6 @@ public class Forecast {
         try{
             response = forecastAPI.getDefault(lat, lon, lang);
         } catch (NullPointerException e){
-            response = null;
             return false;
         }
 
