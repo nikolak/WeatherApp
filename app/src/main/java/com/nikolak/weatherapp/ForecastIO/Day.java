@@ -171,9 +171,7 @@ public class Day {
         this.sunsetTime = dayJson.getInt("sunsetTime");
         this.precipIntensity = dayJson.getDouble("precipIntensity");
         this.precipIntensityMax = dayJson.getDouble("precipIntensityMax");
-        this.precipIntensityMaxTime = dayJson.getInt("precipIntensityMaxTime");
         this.precipProbability = dayJson.getDouble("precipProbability");
-        this.precipType = dayJson.getString("precipType");
         this.temperatureMin = dayJson.getDouble("temperatureMin");
         this.temperatureMinTime = dayJson.getInt("temperatureMinTime");
         this.temperatureMax = dayJson.getDouble("temperatureMax");
@@ -190,10 +188,10 @@ public class Day {
         this.pressure = dayJson.getDouble("pressure");
         this.ozone = dayJson.getDouble("ozone");
 
-        if (this.windSpeed.equals(0)){
+        if (this.windSpeed.equals(0.0)) {
             this.windBearing = null;
-        }else{
-            this.windBearing = dayJson.getInt("windBEaring");
+        } else {
+            this.windBearing = dayJson.getInt("windBearing");
         }
 
         try {
@@ -205,6 +203,16 @@ public class Day {
             this.visibility = dayJson.getDouble("visibility");
         } catch (JSONException e) {
             this.visibility = null;
+        }
+        if (precipIntensity == 0) {
+            this.precipType = "N/A";
+        } else {
+            this.precipType = dayJson.getString("precipType");
+        }
+        try {
+            this.precipIntensityMaxTime = dayJson.getInt("precipIntensityMaxTime");
+        } catch (JSONException e) {
+            this.precipIntensityMaxTime = 0;
         }
     }
 }
