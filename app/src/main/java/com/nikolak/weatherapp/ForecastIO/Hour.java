@@ -107,6 +107,5 @@ public class Hour {
         this.cloudCover = hourJson.getDouble("cloudCover");
         this.pressure = hourJson.getDouble("pressure");
         this.ozone = hourJson.getDouble("ozone");
-        Log.d("Hour", "Constructed: " + time.toString());
     }
 }
