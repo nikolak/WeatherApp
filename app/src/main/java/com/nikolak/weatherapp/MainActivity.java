@@ -16,6 +16,8 @@ package com.nikolak.weatherapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,6 +39,9 @@ import com.nikolak.weatherapp.ForecastIO.Day;
 import com.nikolak.weatherapp.ForecastIO.Forecast;
 
 import org.json.JSONException;
+
+import java.io.IOException;
+import java.util.List;
 
 public class MainActivity extends ActionBarActivity implements ConnectionCallbacks, OnConnectionFailedListener {
 
@@ -64,7 +69,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         settings = this.getSharedPreferences(PREFS_NAME, 0);
-        buildGoogleApiClient();
+        //buildGoogleApiClient();
 
     }
 
@@ -188,6 +193,28 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
 
         daySummary.setText(forecast.hourly.getSummary());
         weekSummary.setText(forecast.daily.getSummary());
+
+        Geocoder geocoder = new Geocoder(getApplicationContext());
+        List<Address> address = null;
+        try {
+            address = geocoder.getFromLocation(
+                    settingsLocation.getLatitude(),
+                    settingsLocation.getLongitude(),
+                    1);
+        } catch (IOException e) {
+            Log.e(TAG, settingsLocation.toString());
+            e.printStackTrace();
+        }
+
+        if (address == null || address.size() <= 0) {
+            Log.w(TAG, "Could not find a location name");
+        } else {
+            Address finalAddress = address.get(0);
+            TextView locationLabel = (TextView) findViewById(R.id.locationLabel);
+            locationLabel.setText(finalAddress.getLocality());
+        }
+
+
     }
 
     public void notifyFail(String msg) {
