@@ -69,7 +69,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         settings = this.getSharedPreferences(PREFS_NAME, 0);
-        //buildGoogleApiClient();
+        buildGoogleApiClient();
 
     }
 
