@@ -5,16 +5,17 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     tools:context="com.example.android.sunshine.app.MainActivity"
-    tools:ignore="MergeRootFrame">
+    tools:ignore="MergeRootFrame"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="0"
-        android:layout_weight="0"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        android:layout_weight="0">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -80,9 +81,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="-25dp"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        android:layout_marginBottom="-25dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -228,9 +227,7 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -261,9 +258,7 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        android:layout_marginBottom="5dp">
 
         <TextView
             android:layout_width="wrap_content"
