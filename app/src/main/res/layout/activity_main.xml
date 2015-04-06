@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="n/a"
-                    android:id="@+id/perception"
+                    android:id="@+id/precipitation"
                     android:layout_gravity="center"
                     android:layout_marginLeft="15dp" />
             </LinearLayout>
