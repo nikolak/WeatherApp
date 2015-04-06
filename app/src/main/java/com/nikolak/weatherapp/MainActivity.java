@@ -127,7 +127,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
         String desc = currently.getSummary();
         String temp = Math.round(currently.getTemperature()) + "°";
         String apparent = Math.round(currently.getApparentTemperature()) + "°";
-        String perceptionValue = forecast.currently.getPrecipIntensity().toString();
+        String precipitationValue = forecast.currently.getPrecipIntensity().toString();
         String windSpeedValue = currently.getWindSpeed() + windSpeedUnit;
         String minTemp = Math.round(currentDay.getTemperatureMin()) + "°";
         String maxTemp = Math.round(currentDay.getTemperatureMax()) + "°";
@@ -173,7 +173,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
         TextView summaryLabel = (TextView) findViewById(R.id.summaryLabel);
         TextView currentTemperature = (TextView) findViewById(R.id.currentTemperature);
         TextView apparentTemperature = (TextView) findViewById(R.id.apparentTemperature);
-        TextView perception = (TextView) findViewById(R.id.perception);
+        TextView precipitation = (TextView) findViewById(R.id.precipitation);
         TextView windSpeed = (TextView) findViewById(R.id.windSpeed);
         TextView minTemperature = (TextView) findViewById(R.id.minTemperature);
         TextView maxTemperature = (TextView) findViewById(R.id.maxTemperature);
@@ -186,7 +186,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
         currentTemperature.setText(temp);
 
         apparentTemperature.setText("Feels like: " + apparent);
-        perception.setText(perceptionValue);
+        precipitation.setText(precipitationValue);
         windSpeed.setText(windSpeedValue);
         minTemperature.setText(minTemp);
         maxTemperature.setText(maxTemp);
