@@ -17,6 +17,8 @@ package com.nikolak.weatherapp.ForecastIO;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+
 public class Currently {
     private Integer time;
     private String summary;
@@ -62,8 +64,8 @@ public class Currently {
         return this.ozone;
     }
 
-    public Double getPrecipIntensity() {
-        return this.precipIntensity;
+    public String getPrecipIntensity() {
+        return new DecimalFormat("#.##").format(this.precipIntensity);
     }
 
     public Double getPrecipProbability() {
