@@ -21,6 +21,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -43,7 +44,11 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.List;
 
-public class MainActivity extends ActionBarActivity implements ConnectionCallbacks, OnConnectionFailedListener {
+public class MainActivity
+        extends ActionBarActivity
+        implements ConnectionCallbacks,
+        OnConnectionFailedListener,
+        SwipeRefreshLayout.OnRefreshListener {
 
 
     public static final String PREFS_NAME = "WeatherAppPrefs";
@@ -64,13 +69,33 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
     // Forecast entry point
     private Forecast forecast = new Forecast();
 
+    // SwipeLayout
+
+    SwipeRefreshLayout swipeLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(this);
         settings = this.getSharedPreferences(PREFS_NAME, 0);
         buildGoogleApiClient();
 
+    }
+
+    // Check for forecast update
+    // Handles initial checks, cache check etc and
+    // decides whether to update the forecast and the UI or not
+
+    public void checkForecastUpdate() {
+        loadLocation();
+        if (settingsLocation.getLatitude() == 0.0d ||
+                settingsLocation.getLongitude() == 0.0d) {
+            notifyFail("Unknown location.");
+            return;
+        }
+        updateForecast();
     }
 
     // Handle saving and loading settings
@@ -100,12 +125,6 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
     // Update forecast object
 
     public void updateForecast() {
-        loadLocation();
-        if (settingsLocation.getLatitude() == 0.0d ||
-                settingsLocation.getLongitude() == 0.0d) {
-            notifyFail("Unknown location.");
-            return;
-        }
         String lat = String.valueOf(settingsLocation.getLatitude());
         String lon = String.valueOf(settingsLocation.getLongitude());
         String lang = settings.getString("language", "en");
@@ -118,7 +137,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
     public void updateForecastUI() {
         Currently currently = forecast.currently;
         Day currentDay = forecast.daily.getDayData().get(0);
-        String windSpeedUnit = null;
+        String windSpeedUnit;
         if (forecast.flags.getUnits().equals("us")) {
             windSpeedUnit = "mph";
         } else {
@@ -127,7 +146,6 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
         String desc = currently.getSummary();
         String temp = Math.round(currently.getTemperature()) + "°";
         String apparent = Math.round(currently.getApparentTemperature()) + "°";
-        String precipitationValue = forecast.currently.getPrecipIntensity().toString();
         String windSpeedValue = currently.getWindSpeed() + windSpeedUnit;
         String minTemp = Math.round(currentDay.getTemperatureMin()) + "°";
         String maxTemp = Math.round(currentDay.getTemperatureMax()) + "°";
@@ -186,7 +204,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
         currentTemperature.setText(temp);
 
         apparentTemperature.setText("Feels like: " + apparent);
-        precipitation.setText(precipitationValue);
+        precipitation.setText(forecast.currently.getPrecipIntensity());
         windSpeed.setText(windSpeedValue);
         minTemperature.setText(minTemp);
         maxTemperature.setText(maxTemp);
@@ -260,7 +278,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
             Log.d("Longitude", String.valueOf(playServicesLocation.getLongitude()));
             saveLocation(playServicesLocation.getLatitude(),
                     playServicesLocation.getLongitude());
-            updateForecast();
+            checkForecastUpdate();
         } else {
             Log.d(TAG, "Play services location is null");
         }
@@ -304,6 +322,12 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRefresh() {
+        checkForecastUpdate();
+        swipeLayout.setRefreshing(false);
     }
 
     // Fetch data from API
