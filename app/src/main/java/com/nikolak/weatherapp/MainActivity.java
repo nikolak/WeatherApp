@@ -15,6 +15,7 @@
 package com.nikolak.weatherapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
@@ -318,6 +319,8 @@ public class MainActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent settingsIntetnt = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntetnt);
             return true;
         }
 
