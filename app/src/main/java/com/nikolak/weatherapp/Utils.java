@@ -20,6 +20,7 @@ import android.location.Geocoder;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 
 public class Utils {
@@ -88,5 +89,12 @@ public class Utils {
             Address finalAddress = address.get(0);
             return finalAddress.getLocality();
         }
+    }
+
+    public static String getHour(int UnixTime){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(UnixTime * 1000);
+        return String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
     }
 }
