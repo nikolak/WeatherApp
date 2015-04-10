@@ -17,8 +17,6 @@ package com.nikolak.weatherapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,7 +25,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,9 +44,6 @@ import com.nikolak.weatherapp.ForecastIO.Day;
 import com.nikolak.weatherapp.ForecastIO.Forecast;
 
 import org.json.JSONException;
-
-import java.io.IOException;
-import java.util.List;
 
 public class MainActivity
         extends ActionBarActivity
@@ -71,18 +71,55 @@ public class MainActivity
     private Forecast forecast = new Forecast();
 
     // SwipeLayout
-
     SwipeRefreshLayout swipeLayout;
+
+    // Current data card elements
+
+    ImageView currentIcon = (ImageView) findViewById(R.id.currentIcon);
+    TextView currentDescription = (TextView) findViewById(R.id.currentDescription);
+    TextView currentFeelsLike = (TextView) findViewById(R.id.currentFeelsLike);
+    TextView currentWind = (TextView) findViewById(R.id.currentWind);
+    TextView currentHumidity = (TextView) findViewById(R.id.currentHumidity);
+
+    TextView currentTemperature = (TextView) findViewById(R.id.currentTemperature);
+    TextView currentLow = (TextView) findViewById(R.id.currentLow);
+    TextView currentHigh = (TextView) findViewById(R.id.currentHigh);
+
+    // List with 48 hour forecast data
+    private ListView hourLIst;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-        swipeLayout.setOnRefreshListener(this);
+        //swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        //swipeLayout.setOnRefreshListener(this);
         settings = this.getSharedPreferences(PREFS_NAME, 0);
         buildGoogleApiClient();
 
+        ScrollView mainScroll = (ScrollView) findViewById(R.id.mainScrollView);
+
+        hourLIst = (ListView) findViewById(R.id.two_day_list);
+        hourLIst.setAdapter(new HourListAdapter(this,
+                forecast.hourly.getHourData()));
+
+
+        mainScroll.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                findViewById(R.id.two_day_list).getParent().requestDisallowInterceptTouchEvent(false);
+                return false;
+            }
+        });
+
+
+        hourLIst.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
     }
 
     // Check for forecast update
@@ -144,96 +181,19 @@ public class MainActivity
         } else {
             windSpeedUnit = "m/s";
         }
-        String desc = currently.getSummary();
-        String temp = Math.round(currently.getTemperature()) + "°";
-        String apparent = Math.round(currently.getApparentTemperature()) + "°";
-        String windSpeedValue = currently.getWindSpeed() + windSpeedUnit;
-        String minTemp = Math.round(currentDay.getTemperatureMin()) + "°";
-        String maxTemp = Math.round(currentDay.getTemperatureMax()) + "°";
-        Integer icon;
-        switch (currently.getIcon()) {
-            case "clear-day":
-                icon = R.drawable.clearday;
-                break;
-            case "clear-night":
-                icon = R.drawable.clearnight;
-                break;
-            case "rain":
-                icon = R.drawable.rain;
-                break;
-            case "snow":
-                icon = R.drawable.snow;
-                break;
-            case "sleet":
-                icon = R.drawable.sleet;
-                break;
-            case "wind":
-                icon = R.drawable.wind;
-                break;
-            case "fog":
-                icon = R.drawable.fog;
-                break;
-            case "cloudy":
-                icon = R.drawable.cloudy;
-                break;
-            case "partly-cloudy-day":
-                icon = R.drawable.partlycloudyday;
-                break;
-            case "partly-cloudy-night":
-                icon = R.drawable.partlycloudynight;
-                break;
-            default:
-                //TODO: Add default icon
-                icon = R.drawable.fog;
-
-        }
-
-        ImageView currentIcon = (ImageView) findViewById(R.id.currentIcon);
-        TextView summaryLabel = (TextView) findViewById(R.id.summaryLabel);
-        TextView currentTemperature = (TextView) findViewById(R.id.currentTemperature);
-        TextView apparentTemperature = (TextView) findViewById(R.id.apparentTemperature);
-        TextView precipitation = (TextView) findViewById(R.id.precipitation);
-        TextView windSpeed = (TextView) findViewById(R.id.windSpeed);
-        TextView minTemperature = (TextView) findViewById(R.id.minTemperature);
-        TextView maxTemperature = (TextView) findViewById(R.id.maxTemperature);
-
-        TextView daySummary = (TextView) findViewById(R.id.daySummary);
-        TextView weekSummary = (TextView) findViewById(R.id.weekSummary);
-        currentIcon.setImageResource(icon);
-        summaryLabel.setText(desc);
-
-        currentTemperature.setText(temp);
-
-        apparentTemperature.setText("Feels like: " + apparent);
-        precipitation.setText(forecast.currently.getPrecipIntensity());
-        windSpeed.setText(windSpeedValue);
-        minTemperature.setText(minTemp);
-        maxTemperature.setText(maxTemp);
-
-        daySummary.setText(forecast.hourly.getSummary());
-        weekSummary.setText(forecast.daily.getSummary());
-
-        Geocoder geocoder = new Geocoder(getApplicationContext());
-        List<Address> address = null;
-        try {
-            address = geocoder.getFromLocation(
-                    settingsLocation.getLatitude(),
-                    settingsLocation.getLongitude(),
-                    1);
-        } catch (IOException e) {
-            Log.e(TAG, settingsLocation.toString());
-            e.printStackTrace();
-        }
-
-        if (address == null || address.size() <= 0) {
-            Log.w(TAG, "Could not find a location name");
-        } else {
-            Address finalAddress = address.get(0);
-            TextView locationLabel = (TextView) findViewById(R.id.locationLabel);
-            locationLabel.setText(finalAddress.getLocality());
-        }
-
-
+        //TODO: Remove fixed label names and use different element
+        currentIcon.setImageResource(Utils.getIconFromValue(currentDay.getIcon()));
+        currentDescription.setText(currently.getSummary());
+        currentFeelsLike.setText("Feels like: " + Math.round(currently.getApparentTemperature()) + "°");
+        currentWind.setText("Wind: " + currently.getWindSpeed() + windSpeedUnit);
+        currentHumidity.setText("Humidity: " + currently.getHumidityPerc());
+        currentTemperature.setText(Math.round(currently.getTemperature()) + "°");
+        currentLow.setText("Low " + Math.round(currentDay.getTemperatureMin()) + "°"
+                + " at " + Utils.getHour(currentDay.getTemperatureMinTime()));
+        currentHigh.setText("Low " + Math.round(currentDay.getTemperatureMax()) + "°"
+                + " at " + Utils.getHour(currentDay.getTemperatureMaxTime()));
+        
+        ((BaseAdapter) hourLIst.getAdapter()).notifyDataSetChanged();
     }
 
     public void notifyFail(String msg) {
@@ -333,7 +293,7 @@ public class MainActivity
         swipeLayout.setRefreshing(false);
     }
 
-    // Fetch data from API
+    // Fetch hourData from API
     public class FetchWeatherTask extends AsyncTask<String, Void, String> {
         private Boolean updated;
 
@@ -362,5 +322,6 @@ public class MainActivity
             }
         }
     }
+
 
 }
