@@ -1,296 +1,292 @@
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipe_container"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2015 Nikola Kovacevic <nikolak@outlook.com>
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/mainScrollView">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/container"
-            android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view_current_temperature"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:context="com.example.android.sunshine.app.MainActivity"
-            tools:ignore="MergeRootFrame"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin">
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            card_view:cardCornerRadius="2dp">
 
             <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="0"
-                android:layout_weight="0">
+                android:layout_marginBottom="10dp"
+                android:weightSum="100">
 
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:weightSum="100"
-                    android:layout_marginTop="25dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="120dp"
-                        android:id="@+id/currentIcon"
-                        android:src="@drawable/sleet"
-                        android:scaleType="centerInside"
-                        android:adjustViewBounds="true"
-                        android:layout_gravity="center"
-                        android:layout_weight="50"
-                        android:focusable="false" />
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50">
 
                     <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
                         android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="50"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="20dp">
+                        android:weightSum="100">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:text="Unknown"
-                            android:id="@+id/summaryLabel"
-                            android:fontFamily="sans-serif-thin"
-                            android:textColor="@color/primary_text_default_material_light"
-                            android:textSize="29sp"
-                            android:layout_gravity="left"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal"
+                            android:layout_weight="50"
+                            android:weightSum="100">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="Location: Unknown"
-                            android:id="@+id/locationLabel"
-                            android:layout_gravity="left"
-                            android:fontFamily="sans-serif-thin" />
+                            <ImageView
+                                android:layout_width="fill_parent"
+                                android:layout_height="44dp"
+                                android:contentDescription="Forecast image"
+                                android:layout_weight="50"
+                                android:padding="5dp"
+                                android:src="@drawable/cloudy" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_marginTop="5dp"
+                                android:textSize="18sp"
+                                android:layout_weight="50"
+                                android:text="Cloudy" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="Last Update: N/A"
-                            android:id="@+id/lastUpdate"
-                            android:layout_gravity="center_horizontal|left"
-                            android:fontFamily="sans-serif-thin" />
+                            android:orientation="vertical"
+                            android:paddingStart="5dp"
+                            android:layout_weight="50">
+
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Feels like:"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="Wind:" />
+
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="Humidity:" />
+
+
+                        </LinearLayout>
+
                     </LinearLayout>
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="-10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="N/A"
-                    android:id="@+id/currentTemperature"
-                    android:textSize="90sp"
-                    android:singleLine="true"
-                    android:fontFamily="sans-serif-thin"
-                    android:includeFontPadding="false"
-                    android:layout_gravity="center|top"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="30dp"
-                    android:layout_weight="50" />
-
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="25"
-                    android:layout_marginTop="2dp">
+                    android:orientation="vertical"
+                    android:layout_weight="50">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Feels like: N.A"
-                        android:id="@+id/apparentTemperature"
-                        android:fontFamily="sans-serif"
-                        android:layout_gravity="center_vertical"
-                        android:textSize="20sp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_weight="1" />
-
-                    <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_marginBottom="5dp"
-                        android:layout_weight="1">
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:textSize="64sp"
+                        android:text="12°"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="-10dp" />
 
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:id="@+id/imageView"
-                            android:src="@drawable/umbrella"
-                            android:scaleType="fitCenter" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="n/a"
-                            android:id="@+id/precipitation"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="15dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="horizontal"
+                    <TextView
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_marginBottom="5dp"
-                        android:layout_weight="1">
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:textStyle="italic"
+                        android:text="Low, 1° at 7AM"
+                        android:textSize="12sp" />
 
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:id="@+id/imageView7"
-                            android:src="@drawable/wind" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="n/a"
-                            android:id="@+id/windSpeed"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="15dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="horizontal"
+                    <TextView
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="1">
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="50">
-
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:id="@+id/imageView8"
-                                android:src="@drawable/mintemp"
-                                android:scaleType="fitCenter" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:text="NA"
-                                android:id="@+id/minTemperature"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="5dp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="50">
-
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:id="@+id/imageView9"
-                                android:src="@drawable/maxtemp"
-                                android:adjustViewBounds="false" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:text="NA"
-                                android:id="@+id/maxTemperature"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="5dp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:textStyle="italic"
+                        android:textSize="12sp"
+                        android:text="High, 18° at 4PM" />
 
                 </LinearLayout>
+
             </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view_short_description_forecast"
+            android:layout_gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="10dp"
+            card_view:cardCornerRadius="2dp">
 
             <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
                 android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:padding="5dp"
+                android:weightSum="100">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Next 24 hours"
-                    android:id="@+id/textView9"
-                    android:layout_gravity="center_horizontal|left"
-                    android:layout_weight="0" />
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="50"
+                    android:paddingBottom="10dp">
 
-                <View
-                    style="@style/Divider"
-                    android:autoText="false"
-                    android:background="@color/button_material_dark"
-                    android:layout_marginBottom="5dp" />
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:text="Next Hour" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Unknown"
-                    android:id="@+id/daySummary"
-                    android:textSize="17sp" />
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="italic"
+                        android:textSize="12sp"
+                        android:text="Cloudy" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="50"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:text="Next 24 Hours" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="italic"
+                        android:textSize="12sp"
+                        android:text="Partly cloudy starting this afternoon, continuing until
+tomorrow morning." />
+                </LinearLayout>
 
             </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view_two_day_forecast"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="10dp"
+            card_view:cardCornerRadius="2dp">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:padding="5dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Next 7 Days"
-                    android:id="@+id/textView11" />
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:text="Next 48 Hours" />
 
-                <View
-                    style="@style/Divider"
-                    android:autoText="false"
-                    android:background="@color/button_material_dark"
-                    android:layout_marginBottom="5dp" />
+                <ListView
+                    android:id="@+id/two_day_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </ListView>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view_week_forecast"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="10dp"
+            card_view:cardCornerRadius="2dp">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:padding="5dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/weekSummary"
-                    android:textSize="17sp"
-                    android:text="Unknown" />
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:text="Next 7 days" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:textSize="12sp"
+                    android:text="Light rain on Saturday through Tuesday, with
+temperatures bottoming out at 12°C on Saturday." />
+
+
+                <ListView
+                    android:id="@+id/week_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </ListView>
 
             </LinearLayout>
 
-        </LinearLayout>
-    </ScrollView>
-</android.support.v4.widget.SwipeRefreshLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</ScrollView>
