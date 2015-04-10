@@ -23,19 +23,18 @@
 
     <TextView
         android:id="@+id/hour_time"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="10"
+        android:layout_width="10dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="15"
         android:gravity="center_vertical"
-        android:text="10AM"
-        android:layout_gravity="left" />
+        android:layout_gravity="left"
+        android:text="10" />
 
     <ImageView
         android:id="@+id/hour_icon"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:padding="10dp"
-        android:layout_gravity="left"
         android:src="@drawable/cloudy"
         android:layout_weight="10" />
 
