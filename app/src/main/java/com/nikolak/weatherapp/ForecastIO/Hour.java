@@ -19,6 +19,10 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
 public class Hour {
 
     private Integer time;
@@ -38,6 +42,18 @@ public class Hour {
 
     public Integer getTime() {
         return this.time;
+    }
+
+    public String getHour(){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(this.time * 1000);
+        return String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+    }
+
+    public String getProbabilityPerc(){
+        Double percentage = this.precipProbability * 100;
+        return String.valueOf(percentage.intValue())+"%";
     }
 
     public String getSummary() {
