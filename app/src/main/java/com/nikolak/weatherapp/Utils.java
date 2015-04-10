@@ -78,6 +78,7 @@ public class Utils {
         } catch (IOException e) {
             Log.e(TAG, lat.toString()+lon.toString());
             e.printStackTrace();
+            return null;
         }
 
         if (address == null || address.size() <= 0) {
