@@ -73,17 +73,17 @@ public class MainActivity
     // SwipeLayout
     SwipeRefreshLayout swipeLayout;
 
-    // Current data card elements
+    // Current data card elements' variables
 
-    ImageView currentIcon = (ImageView) findViewById(R.id.currentIcon);
-    TextView currentDescription = (TextView) findViewById(R.id.currentDescription);
-    TextView currentFeelsLike = (TextView) findViewById(R.id.currentFeelsLike);
-    TextView currentWind = (TextView) findViewById(R.id.currentWind);
-    TextView currentHumidity = (TextView) findViewById(R.id.currentHumidity);
+    private ImageView currentIcon;
+    private TextView currentDescription;
+    private TextView currentFeelsLike;
+    private TextView currentWind;
+    private TextView currentHumidity;
 
-    TextView currentTemperature = (TextView) findViewById(R.id.currentTemperature);
-    TextView currentLow = (TextView) findViewById(R.id.currentLow);
-    TextView currentHigh = (TextView) findViewById(R.id.currentHigh);
+    private TextView currentTemperature;
+    private TextView currentLow;
+    private TextView currentHigh;
 
     // List with 48 hour forecast data
     private ListView hourLIst;
@@ -103,7 +103,19 @@ public class MainActivity
         hourLIst.setAdapter(new HourListAdapter(this,
                 forecast.hourly.getHourData()));
 
+        // Assign current weather card elements to variables
 
+        currentIcon = (ImageView) findViewById(R.id.currentIcon);
+        currentDescription = (TextView) findViewById(R.id.currentDescription);
+        currentFeelsLike = (TextView) findViewById(R.id.currentFeelsLike);
+        currentWind = (TextView) findViewById(R.id.currentWind);
+        currentHumidity = (TextView) findViewById(R.id.currentHumidity);
+
+        currentTemperature = (TextView) findViewById(R.id.currentTemperature);
+        currentLow = (TextView) findViewById(R.id.currentLow);
+        currentHigh = (TextView) findViewById(R.id.currentHigh);
+
+        // Add on touch listeners to allow scrolling of the lists inside scrollview
         mainScroll.setOnTouchListener(new View.OnTouchListener() {
 
             public boolean onTouch(View v, MotionEvent event) {
@@ -192,7 +204,7 @@ public class MainActivity
                 + " at " + Utils.getHour(currentDay.getTemperatureMinTime()));
         currentHigh.setText("Low " + Math.round(currentDay.getTemperatureMax()) + "°"
                 + " at " + Utils.getHour(currentDay.getTemperatureMaxTime()));
-        
+
         ((BaseAdapter) hourLIst.getAdapter()).notifyDataSetChanged();
     }
 
