@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nikolak.weatherapp.ForecastIO.Hour;
+import com.nikolak.weatherapp.Utils;
 
 import org.w3c.dom.Text;
 
@@ -59,6 +60,7 @@ public class HourListAdapter extends BaseAdapter{
         return position;
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
@@ -72,7 +74,14 @@ public class HourListAdapter extends BaseAdapter{
         TextView hourTemperature = (TextView) conView.findViewById(R.id.hour_temp);
 
         Hour hour = hourData.get(position);
+        hourTime.setText(hour.getHour());
         hourDesc.setText(hour.getSummary());
+        hourIcon.setImageResource(Utils.getIconFromValue(hour.getIcon()));
+        hourProbability.setText(hour.getProbabilityPerc());
+        hourTemperature.setText(Math.round(hour.getTemperature())+"°");
+
         return conView;
     }
+
+
 }
