@@ -14,7 +14,17 @@
 
 package com.nikolak.weatherapp;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+import android.util.Log;
+
+import java.io.IOException;
+import java.util.List;
+
 public class Utils {
+
+    public static final String TAG = "UtilsClass";
 
     public static Integer getIconFromValue(String iconValue) {
         Integer icon;
@@ -55,5 +65,27 @@ public class Utils {
 
         }
         return icon;
+    }
+
+    public static String getCity(Double lat, Double lon, Context context){
+        Geocoder geocoder = new Geocoder(context);
+        List<Address> address = null;
+        try {
+            address = geocoder.getFromLocation(
+                    lat,
+                    lon,
+                    1);
+        } catch (IOException e) {
+            Log.e(TAG, lat.toString()+lon.toString());
+            e.printStackTrace();
+        }
+
+        if (address == null || address.size() <= 0) {
+            Log.w(TAG, "Could not find a location name");
+            return null;
+        } else {
+            Address finalAddress = address.get(0);
+            return finalAddress.getLocality();
+        }
     }
 }
