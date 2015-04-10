@@ -44,6 +44,7 @@ import com.nikolak.weatherapp.ForecastIO.Day;
 import com.nikolak.weatherapp.ForecastIO.Forecast;
 
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 public class MainActivity
         extends ActionBarActivity
@@ -85,6 +86,11 @@ public class MainActivity
     private TextView currentLow;
     private TextView currentHigh;
 
+    // Next day and next 7 days description card variables
+
+    private TextView nextHourDesc;
+    private TextView nextDayDesc;
+
     // List with 48 hour forecast data
     private ListView hourLIst;
 
@@ -114,6 +120,11 @@ public class MainActivity
         currentTemperature = (TextView) findViewById(R.id.currentTemperature);
         currentLow = (TextView) findViewById(R.id.currentLow);
         currentHigh = (TextView) findViewById(R.id.currentHigh);
+
+        // Assign next hour/day card elements to variables
+
+        nextHourDesc = (TextView) findViewById(R.id.nextHourDesc);
+        nextDayDesc = (TextView) findViewById(R.id.nextDayDesc);
 
         // Add on touch listeners to allow scrolling of the lists inside scrollview
         mainScroll.setOnTouchListener(new View.OnTouchListener() {
@@ -204,6 +215,9 @@ public class MainActivity
                 + " at " + Utils.getHour(currentDay.getTemperatureMinTime()));
         currentHigh.setText("Low " + Math.round(currentDay.getTemperatureMax()) + "°"
                 + " at " + Utils.getHour(currentDay.getTemperatureMaxTime()));
+
+        nextHourDesc.setText(forecast.hourly.getHourData().get(0).getSummary());
+        nextDayDesc.setText(forecast.hourly.getSummary());
 
         ((BaseAdapter) hourLIst.getAdapter()).notifyDataSetChanged();
     }
