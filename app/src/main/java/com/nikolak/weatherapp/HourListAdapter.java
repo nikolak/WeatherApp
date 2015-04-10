@@ -74,7 +74,7 @@ public class HourListAdapter extends BaseAdapter{
         TextView hourTemperature = (TextView) conView.findViewById(R.id.hour_temp);
 
         Hour hour = hourData.get(position);
-        hourTime.setText(hour.getHour());
+        hourTime.setText(Utils.getHour(hour.getTime()));
         hourDesc.setText(hour.getSummary());
         hourIcon.setImageResource(Utils.getIconFromValue(hour.getIcon()));
         hourProbability.setText(hour.getProbabilityPerc());
