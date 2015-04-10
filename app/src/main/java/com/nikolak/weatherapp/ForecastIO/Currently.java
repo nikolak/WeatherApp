@@ -56,6 +56,11 @@ public class Currently {
         return this.humidity;
     }
 
+    public String getHumidityPerc() {
+        Double percentage = this.humidity * 100;
+        return String.valueOf(percentage.intValue())+"%";
+    }
+
     public String getIcon() {
         return this.icon;
     }
