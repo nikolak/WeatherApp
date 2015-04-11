@@ -23,12 +23,11 @@
 
     <TextView
         android:id="@+id/hour_time"
-        android:layout_width="10dp"
+        android:layout_width="30dp"
         android:layout_height="fill_parent"
         android:layout_weight="15"
         android:gravity="center_vertical"
-        android:layout_gravity="left"
-        android:text="10" />
+        android:text="19" />
 
     <ImageView
         android:id="@+id/hour_icon"
@@ -57,12 +56,12 @@
         android:layout_height="match_parent"
         android:layout_weight="20"
         android:gravity="center_vertical"
-        android:text="10%"
+        android:text="11%"
         android:layout_gravity="right" />
 
     <TextView
         android:id="@+id/hour_temp"
-        android:layout_width="wrap_content"
+        android:layout_width="10dp"
         android:layout_height="match_parent"
         android:layout_weight="20"
         android:gravity="center"
