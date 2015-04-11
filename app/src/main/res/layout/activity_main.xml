@@ -246,7 +246,7 @@ tomorrow morning." />
                     android:text="Next 48 Hours" />
 
                 <ListView
-                    android:id="@+id/two_day_list"
+                    android:id="@+id/twoDayList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -279,16 +279,18 @@ tomorrow morning." />
                     android:text="Next 7 days" />
 
                 <TextView
+                    android:id="@+id/weekDescription"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="italic"
+                    android:paddingBottom="10dp"
                     android:textSize="12sp"
                     android:text="Light rain on Saturday through Tuesday, with
 temperatures bottoming out at 12°C on Saturday." />
 
 
                 <ListView
-                    android:id="@+id/week_list"
+                    android:id="@+id/weekList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
