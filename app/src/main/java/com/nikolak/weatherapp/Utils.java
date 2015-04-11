@@ -20,8 +20,12 @@ import android.location.Geocoder;
 import android.util.Log;
 
 import java.io.IOException;
-import java.util.Calendar;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class Utils {
 
@@ -68,7 +72,7 @@ public class Utils {
         return icon;
     }
 
-    public static String getCity(Double lat, Double lon, Context context){
+    public static String getCity(Double lat, Double lon, Context context) {
         Geocoder geocoder = new Geocoder(context);
         List<Address> address = null;
         try {
@@ -77,7 +81,7 @@ public class Utils {
                     lon,
                     1);
         } catch (IOException e) {
-            Log.e(TAG, lat.toString()+lon.toString());
+            Log.e(TAG, lat.toString() + lon.toString());
             e.printStackTrace();
             return null;
         }
@@ -91,10 +95,21 @@ public class Utils {
         }
     }
 
-    public static String getHour(int UnixTime){
+    public static boolean usesAmPm() {
+        DateFormat df = DateFormat.getTimeInstance(DateFormat.FULL, Locale.getDefault());
+        return df instanceof SimpleDateFormat && ((SimpleDateFormat) df).toPattern().contains("a");
+    }
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(UnixTime * 1000);
-        return String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+    public static String getHour(int unixTime) {
+        long time = unixTime * (long) 1000;
+        Date date = new Date(time);
+        SimpleDateFormat hourformat;
+        if (usesAmPm()) {
+            hourformat = new SimpleDateFormat("ha");
+        } else {
+            hourformat = new SimpleDateFormat("HH");
+        }
+        hourformat.setTimeZone(TimeZone.getDefault());
+        return hourformat.format(date);
     }
 }
