@@ -93,6 +93,9 @@ public class MainActivity
     // List with 48 hour forecast data
     private ListView hourLIst;
 
+    // List with 7 day forecast data
+    private ListView weekList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +110,10 @@ public class MainActivity
         hourLIst = (ListView) findViewById(R.id.twoDayList);
         hourLIst.setAdapter(new HourListAdapter(this,
                 forecast.hourly.getHourData()));
+
+        weekList = (ListView) findViewById(R.id.weekList);
+        weekList.setAdapter(new WeekListAdapter(this,
+                forecast.daily.getDayData()));
 
         // Assign current weather card elements to variables
 
@@ -142,6 +149,15 @@ public class MainActivity
                 return false;
             }
         });
+
+        weekList.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
     }
 
     // Check for forecast update
@@ -219,6 +235,7 @@ public class MainActivity
         nextDayDesc.setText(forecast.hourly.getSummary());
 
         ((BaseAdapter) hourLIst.getAdapter()).notifyDataSetChanged();
+        ((BaseAdapter) weekList.getAdapter()).notifyDataSetChanged();
     }
 
     public void notifyFail(String msg) {
