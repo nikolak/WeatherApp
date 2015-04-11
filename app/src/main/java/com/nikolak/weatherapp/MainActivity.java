@@ -44,7 +44,6 @@ import com.nikolak.weatherapp.ForecastIO.Day;
 import com.nikolak.weatherapp.ForecastIO.Forecast;
 
 import org.json.JSONException;
-import org.w3c.dom.Text;
 
 public class MainActivity
         extends ActionBarActivity
@@ -105,7 +104,7 @@ public class MainActivity
 
         ScrollView mainScroll = (ScrollView) findViewById(R.id.mainScrollView);
 
-        hourLIst = (ListView) findViewById(R.id.two_day_list);
+        hourLIst = (ListView) findViewById(R.id.twoDayList);
         hourLIst.setAdapter(new HourListAdapter(this,
                 forecast.hourly.getHourData()));
 
@@ -130,7 +129,7 @@ public class MainActivity
         mainScroll.setOnTouchListener(new View.OnTouchListener() {
 
             public boolean onTouch(View v, MotionEvent event) {
-                findViewById(R.id.two_day_list).getParent().requestDisallowInterceptTouchEvent(false);
+                findViewById(R.id.twoDayList).getParent().requestDisallowInterceptTouchEvent(false);
                 return false;
             }
         });
@@ -213,7 +212,7 @@ public class MainActivity
         currentTemperature.setText(Math.round(currently.getTemperature()) + "°");
         currentLow.setText("Low " + Math.round(currentDay.getTemperatureMin()) + "°"
                 + " at " + Utils.getHour(currentDay.getTemperatureMinTime()));
-        currentHigh.setText("Low " + Math.round(currentDay.getTemperatureMax()) + "°"
+        currentHigh.setText("High " + Math.round(currentDay.getTemperatureMax()) + "°"
                 + " at " + Utils.getHour(currentDay.getTemperatureMaxTime()));
 
         nextHourDesc.setText(forecast.hourly.getHourData().get(0).getSummary());
