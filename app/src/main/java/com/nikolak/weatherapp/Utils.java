@@ -112,4 +112,13 @@ public class Utils {
         hourformat.setTimeZone(TimeZone.getDefault());
         return hourformat.format(date);
     }
+
+    public static String getDay(int unixTime){
+        long time = unixTime * (long) 1000;
+        Date date = new Date(time);
+        SimpleDateFormat dayFormat;
+        dayFormat = new SimpleDateFormat("EEE", Locale.getDefault());
+        dayFormat.setTimeZone(TimeZone.getDefault());
+        return dayFormat.format(date);
+    }
 }
