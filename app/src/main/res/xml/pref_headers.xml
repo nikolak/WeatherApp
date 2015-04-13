@@ -18,10 +18,10 @@
 
     <!-- These settings headers are only used on tablets. -->
 
-    <header android:fragment="com.nikolak.weatherapp.SettingsActivity$GeneralPreferenceFragment"
+    <header android:fragment="com.nikolak.weathercard.SettingsActivity$GeneralPreferenceFragment"
         android:title="@string/pref_header_general" />
 
-    <header android:fragment="com.nikolak.weatherapp.SettingsActivity$DataSyncPreferenceFragment"
+    <header android:fragment="com.nikolak.weathercard.SettingsActivity$DataSyncPreferenceFragment"
         android:title="@string/pref_header_data_sync" />
 
 </preference-headers>
